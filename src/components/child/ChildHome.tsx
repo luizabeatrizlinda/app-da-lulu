@@ -6,12 +6,14 @@ import { motion } from 'motion/react';
 interface ChildHomeProps {
   currentUser: UserProfile;
   onNavigate: (screen: 'checkin' | 'calm' | 'treasures' | 'drawing' | 'garden' | 'emergency') => void;
+  onOpenOpeningScreen?: () => void;
   recentMoodEmotion?: string;
 }
 
 export const ChildHome: React.FC<ChildHomeProps> = ({
   currentUser,
   onNavigate,
+  onOpenOpeningScreen,
   recentMoodEmotion,
 }) => {
   const cards = [
@@ -114,14 +116,26 @@ export const ChildHome: React.FC<ChildHomeProps> = ({
           </div>
         </div>
 
-        {/* Quick check-in prompt button */}
-        <button
-          onClick={() => onNavigate('checkin')}
-          className="px-5 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs sm:text-sm shadow-xs flex items-center gap-2 transition-transform active:scale-95 shrink-0 cursor-pointer"
-        >
-          <Heart className="w-4 h-4 fill-white" />
-          <span>Fazer Check-in Agora</span>
-        </button>
+        {/* Quick action buttons */}
+        <div className="flex flex-col sm:flex-row items-center gap-2.5 shrink-0">
+          {onOpenOpeningScreen && (
+            <button
+              onClick={onOpenOpeningScreen}
+              className="w-full sm:w-auto px-4 py-3 rounded-2xl bg-white/90 hover:bg-white text-slate-700 font-bold text-xs sm:text-sm border border-emerald-200/80 shadow-xs flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
+            >
+              <span>☀️🌙</span>
+              <span>Céu Mágico</span>
+            </button>
+          )}
+
+          <button
+            onClick={() => onNavigate('checkin')}
+            className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs sm:text-sm shadow-xs flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
+          >
+            <Heart className="w-4 h-4 fill-white" />
+            <span>Fazer Check-in</span>
+          </button>
+        </div>
       </div>
 
       {/* Navigational Cards Grid */}

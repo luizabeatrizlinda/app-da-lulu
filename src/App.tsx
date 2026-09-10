@@ -11,6 +11,7 @@ import { TreasuresBox } from './components/child/TreasuresBox';
 import { DrawingJournal } from './components/child/DrawingJournal';
 import { AchievementsGarden } from './components/child/AchievementsGarden';
 import { ProfessionalDashboard } from './components/adult/ProfessionalDashboard';
+import { OpeningScreen } from './components/OpeningScreen';
 import { Heart, Shield, Phone, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -21,6 +22,7 @@ export default function App() {
   const [isSosOpen, setIsSosOpen] = useState(false);
   const [isSwitchUserOpen, setIsSwitchUserOpen] = useState(false);
   const [childScreen, setChildScreen] = useState<ChildScreen>('home');
+  const [showOpeningScreen, setShowOpeningScreen] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = db.subscribe(() => {
@@ -46,6 +48,15 @@ export default function App() {
 
   const isChild = currentUser.role === 'child';
 
+  if (showOpeningScreen) {
+    return (
+      <OpeningScreen
+        onEnter={() => setShowOpeningScreen(false)}
+        childName={currentUser.nickname || currentUser.name}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F6FBF9] text-slate-800">
       {/* Top Navigation & Profile Bar */}
@@ -53,6 +64,7 @@ export default function App() {
         currentUser={currentUser}
         onOpenSos={() => setIsSosOpen(true)}
         onOpenSwitchUser={() => setIsSwitchUserOpen(true)}
+        onOpenOpeningScreen={() => setShowOpeningScreen(true)}
       />
 
       {/* Main Content Area */}
@@ -71,6 +83,7 @@ export default function App() {
                 <ChildHome
                   currentUser={currentUser}
                   onNavigate={handleChildNavigate}
+                  onOpenOpeningScreen={() => setShowOpeningScreen(true)}
                 />
               )}
 

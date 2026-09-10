@@ -6,12 +6,14 @@ interface HeaderProps {
   currentUser: UserProfile;
   onOpenSos: () => void;
   onOpenSwitchUser: () => void;
+  onOpenOpeningScreen?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentUser,
   onOpenSos,
   onOpenSwitchUser,
+  onOpenOpeningScreen,
 }) => {
   const isChild = currentUser.role === 'child';
 
@@ -53,8 +55,21 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Right actions: SOS Button & User Profile Switcher */}
+        {/* Right actions: Opening Screen, SOS Button & User Profile Switcher */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Re-open animated opening screen */}
+          {onOpenOpeningScreen && (
+            <button
+              onClick={onOpenOpeningScreen}
+              id="btn-opening-screen"
+              className="flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200/80 text-xs font-bold shadow-xs hover:shadow-sm transition-all duration-200 active:scale-95 cursor-pointer"
+              title="Ver Céu do Sol e da Lua"
+            >
+              <span className="text-base sm:text-lg">☀️🌙</span>
+              <span className="hidden sm:inline">Abertura</span>
+            </button>
+          )}
+
           {/* Always-visible gentle emergency SOS button */}
           <button
             onClick={onOpenSos}
