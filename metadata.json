@@ -1,0 +1,6 @@
+{
+  "name": "Espaço Aconchego - Apoio e Cuidado Emocional",
+  "description": "Plataforma terapêutica acolhedora e segura de apoio emocional e monitoramento preventivo para crianças, com perfis pedagógicos e clínicos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
